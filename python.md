@@ -12,3 +12,46 @@ index-url=http://rnd-mirrors.huawei.com/pypi/simple/
 ```
 set PYTHONPATH=D:\Python27\Lib\site-packages
 ```
+
+## logging 模块使用
+```
+import logging
+import logging.config
+
+logging.config.fileConfig("./conf/my_logging.conf")
+logger = logging.getLogger('root')
+```
+
+conf/my_logging.conf 内容
+```
+[loggers]
+keys=root
+
+[logger_root]
+level=DEBUG
+handlers=hand01,hand02
+
+[handlers]
+keys=hand01,hand02
+
+[handler_hand01]
+class=StreamHandler
+level=INFO
+formatter=form02
+args=(sys.stdout,)
+
+[handler_hand02]
+class=handlers.RotatingFileHandler
+level=DEBUG
+formatter=form01
+args=('log/push_cpp.log', 'a', 50*1024*1024, 5)
+
+[formatters]
+keys=form01,form02
+
+[formatter_form01]
+format=%(asctime)s %(filename)s[%(lineno)d] %(levelname)s %(message)s
+
+[formatter_form02]
+format=%(asctime)s %(filename)s[%(lineno)d] %(levelname)s %(message)s
+```
