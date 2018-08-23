@@ -9,7 +9,7 @@
         },
         "lib_acl_include" : {
             "pattern" : ["xautotest/include/lib_acl/**.h,.hpp"],
-            "excludeDirs" : ["qasn", "fasn"]
+            "excludeDirs" : ["qasn", "fasn"],
             "archive" : "SDKROOT/u2k_sdk/biz_frame/server/include/lib_acl"
         }
     }
