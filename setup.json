@@ -5,11 +5,12 @@
     "dist" : {
         "acl_cpp_include" : {
             "pattern" : ["xautotest/include/acl_cpp/**.h,.hpp"],
-            "arc" : "SDKROOT/u2k_sdk/biz_frame/server/include/acl_cpp"
+            "archive" : "SDKROOT/u2k_sdk/biz_frame/server/include/acl_cpp"
         },
         "lib_acl_include" : {
             "pattern" : ["xautotest/include/lib_acl/**.h,.hpp"],
-            "arc" : "SDKROOT/u2k_sdk/biz_frame/server/include/lib_acl"
+            "excludeDirs" : ["qasn", "fasn"]
+            "archive" : "SDKROOT/u2k_sdk/biz_frame/server/include/lib_acl"
         }
     }
 }
