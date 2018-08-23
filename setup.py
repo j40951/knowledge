@@ -69,10 +69,13 @@ def zip_dist(_dist_info):
         return None, _err
     _zip_target = list()
     for _dist_type in _dist_info['dist']:
-        if 'arc' in _dist_info['dist'][_dist_type]:
-            _arc = _dist_info['dist'][_dist_type]['arc']
-        else:
-            _arc = ''
+        _archive = ''
+        if 'archive' in _dist_info['dist'][_dist_type]:
+            _archive = _dist_info['dist'][_dist_type]['archive']
+            
+        _exclude_dirs = []
+        if 'excludeDirs' in _dist_info['dist'][_dist_type]:
+            _exclude_dirs = _dist_info['dist'][_dist_type]['excludeDirs']
 
         if 'pattern' in _dist_info['dist'][_dist_type]:
             _patterns = _dist_info['dist'][_dist_type]['pattern']
@@ -80,13 +83,14 @@ def zip_dist(_dist_info):
                 # print _item
                 _rule, _err = parse_rule(_item)
                 if _err is None:
-                    if _arc is not None:
-                        _rule['arc'] = _arc
+                    _rule['archive'] = _archive
+                    _rule['excludeDirs'] = _exclude_dirs
                     # print 'success->', _rule
                     _zip_target.append(_rule)
                 else:
                     # print _err
                     err_list.append('Parse rule fail, item=%s, err=%s' % (_item, _err))
+                    
     return _zip_target, None
 
 
@@ -95,18 +99,18 @@ def walk_dir_and_zip(_zip_filename, _zip_target):
     zip_file = zipfile.ZipFile(_zip_file, mode='w', compression=zipfile.ZIP_DEFLATED)
     try:
         for _target in _zip_target:
-            _dir, _file_list, _arc, _err = walk_dir(_target)
+            _dir, _file_list, _archive, _err = walk_dir(_target)
             if _err is not None:
                 # print 'Error->', _err
                 err_list.append('%s walk fail, err=%s' % (_target, _err))
                 continue
 
             for _file in _file_list:
-                _arc_name = _zip_filename + os.sep + _arc + _file.replace(_dir, '', 1)
+                _archive_name = _zip_filename + os.sep + _archive + _file.replace(_dir, '', 1)
                 # print _dir
                 print _file
-                print 'ar->', _arc_name
-                zip_file.write(_file, arcname=_arc_name)
+                print 'ar->', _archive_name
+                zip_file.write(_file, arcname=_archive_name)
     finally:
         zip_file.close()
 
@@ -119,15 +123,17 @@ def walk_dir(_target):
     _dir = _target['dir']
     _recursive = _target['recursive']
 
-    if 'arc' in _target:
-        _arc = _target['arc']
+    if 'archive' in _target:
+        _archive = _target['archive']
     else:
-        _arc = None
+        _archive = None
 
     if 'suffix' in _target:
         _suffix = _target['suffix']
     else:
         _suffix = None
+        
+    _exclude_dirs = _target['excludeDirs']
 
     _file_list = list()
     for _root, _dirs, _files in os.walk(_dir):
@@ -140,12 +146,13 @@ def walk_dir(_target):
                     _file_list.append(os.path.join(_root, _name))
                     break
         for _name in _dirs:
-            _file_list.append(os.path.join(_root, _name))
+            if _name not in _exclude_dirs:
+                _file_list.append(os.path.join(_root, _name))
 
         if not _recursive:
             break
 
-    return _dir, _file_list, _arc, None
+    return _dir, _file_list, _archive, None
 
 
 def setup(_setup_file):
