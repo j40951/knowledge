@@ -45,7 +45,7 @@ def parse_rule(_rule):
         _err = 'parameter is invalid'
         return None, _err
     _result = dict()
-    _pattern = re.compile(r'^([a-zA-Z0-9-_/.]+)/([*]{1,2})([a-zA-Z0-9-_.,]*)$')
+    _pattern = re.compile(r'^([a-zA-Z0-9-_/.]+)/([*]{0,2})([a-zA-Z0-9-_.,]*)$')
     _match = _pattern.match(_rule)
     if _match:
         _group = _match.groups()
@@ -145,9 +145,9 @@ def walk_dir(_target):
                 if _name == _item or (_item.startswith('.') and _name.endswith(_item)):
                     _file_list.append(os.path.join(_root, _name))
                     break
-        for _name in _dirs:
-            if _name not in _exclude_dirs:
-                _file_list.append(os.path.join(_root, _name))
+        #for _name in _dirs:
+        #    if _name not in _exclude_dirs:
+        #        _file_list.append(os.path.join(_root, _name))
 
         if not _recursive:
             break
@@ -168,7 +168,7 @@ def setup(_setup_file):
         # print 'Error: $s, file=%s' % (_err, _setup_file)
         return None, 'Error: $s, file=%s' % (_err, _setup_file)
         # exit()
-    _dist_info['build'] = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+    _dist_info['build'] = time.strftime('%Y%m%d.%H%M%S', time.localtime(time.time()))
     # print _dist_info
     _zip_filename = '%(name)s-%(os)s-%(version)s.%(build)s' % _dist_info
     # _version = '%(version)s.%(build)s' % _dist_info
