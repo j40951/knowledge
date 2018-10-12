@@ -2,6 +2,7 @@
     "name" : "sqltrace",
     "version" : "0.5.38",
     "os" : "win32",
+    "prefix" : "",
     "dist" : {
         "acl_cpp_include" : {
             "pattern" : ["xautotest/include/acl_cpp/**.h,.hpp"],
