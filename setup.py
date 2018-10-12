@@ -94,7 +94,7 @@ def zip_dist(_dist_info):
     return _zip_target, None
 
 
-def walk_dir_and_zip(_zip_filename, _zip_target):
+def walk_dir_and_zip(_zip_filename, _zip_target, _prefix):
     _zip_file = 'dist/%s.zip' % _zip_filename
     zip_file = zipfile.ZipFile(_zip_file, mode='w', compression=zipfile.ZIP_DEFLATED)
     try:
@@ -106,7 +106,7 @@ def walk_dir_and_zip(_zip_filename, _zip_target):
                 continue
 
             for _file in _file_list:
-                _archive_name = _zip_filename + os.sep + _archive + _file.replace(_dir, '', 1)
+                _archive_name = _prefix + _archive + _file.replace(_dir, '', 1)
                 # print _dir
                 print _file
                 print 'ar->', _archive_name
@@ -171,12 +171,15 @@ def setup(_setup_file):
     _dist_info['build'] = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
     # print _dist_info
     _zip_filename = '%(name)s-%(os)s-%(version)s.%(build)s' % _dist_info
-    _version = '%(version)s.%(build)s' % _dist_info
+    # _version = '%(version)s.%(build)s' % _dist_info
+    _prefix = _zip_filename + os.sep
+    if 'prefix' in _dist_info:
+        _prefix = _dist_info['prefix']
     # print zip_filename, version
     _zip_target, _err = zip_dist(_dist_info)
     if _err is None:
         # print zip_target
-        walk_dir_and_zip(_zip_filename, _zip_target)
+        walk_dir_and_zip(_zip_filename, _zip_target, _prefix)
         return _zip_filename, None
     return None, _err
     
