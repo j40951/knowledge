@@ -1,0 +1,41 @@
+SHELL    		= /bin/sh
+CC       		= g++
+RUNTIME_DIST  	= ${U2K_VOB_ROOT}/bizplane/biz_frame/runtime/server/cbb/frame/lib
+U2K_SDK_ROOT = ${U2K_CPP_SDK_ROOT}/biz_frame/server/lib/release
+
+default: release
+release: clean
+	$(shell mkdir -p ../lib/release)
+	
+	@(cd ../listener && make)
+	@(cd sqltrace_model && make)
+	@(cd sqltrace_util && make)
+	@(cd sqltrace_injector && make)
+	@(cd xdao_worker_repo && make)
+	@(cd sqltrace; make)
+	@(cd xautotest/src/sqltrace_accessmodule; make)
+
+	cp -f ../lib/release/libdb-listener.so $(RUNTIME_DIST)/libdb-listener.so
+	cp -f ../lib/release/libsqltrace_model.so $(RUNTIME_DIST)/libsqltrace_model.so
+	cp -f ../lib/release/libsqltrace_util.so $(RUNTIME_DIST)/libsqltrace_util.so
+	cp -f ../lib/release/libsqltrace_injector.so $(RUNTIME_DIST)/libsqltrace_injector.so
+	cp -f ../lib/release/libxdao_worker_repo.so $(RUNTIME_DIST)/libxdao_worker_repo.so
+	cp -f ../lib/release/libsqltrace.so $(RUNTIME_DIST)/libsqltrace.so
+	cp -f ../lib/release/libsqltrace_accessmodule.so $(RUNTIME_DIST)/libsqltrace_accessmodule.so
+	
+	cp -f ../lib/release/libdb-listener.so $(U2K_SDK_ROOT)/libdb-listener.so
+	cp -f ../lib/release/libsqltrace_model.so $(U2K_SDK_ROOT)/libsqltrace_model.so
+	cp -f ../lib/release/libsqltrace_util.so $(U2K_SDK_ROOT)/libsqltrace_util.so
+	cp -f ../lib/release/libsqltrace_injector.so $(U2K_SDK_ROOT)/libsqltrace_injector.so
+	cp -f ../lib/release/libxdao_worker_repo.so $(U2K_SDK_ROOT)/libxdao_worker_repo.so
+	cp -f ../lib/release/libsqltrace.so $(U2K_SDK_ROOT)/libsqltrace.so
+	cp -f ../lib/release/libsqltrace_accessmodule.so $(U2K_SDK_ROOT)/libsqltrace_accessmodule.so
+
+clean:
+	@(cd ../listener && make clean)
+	@(cd sqltrace_model && make clean)
+	@(cd sqltrace_util && make clean)
+	@(cd sqltrace_injector && make clean)
+	@(cd xdao_worker_repo && make clean)
+	@(cd sqltrace && make clean)
+	@(cd xautotest/src/sqltrace_accessmodule && make clean)
