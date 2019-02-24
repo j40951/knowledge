@@ -101,10 +101,7 @@ git branch -d dev
 ```
 
 ## Submodule的使用
-```sh
-git submodule foreach git checkout newcore_mysql
-git submodule foreach git pull
-```
+
 ### 增加子模块
 ```sh
 git submodule add https://github.com/j40951/TwitterService-Api.git api
@@ -122,6 +119,12 @@ git clone https://github.com/j40951/TwitterService.git
 cd api
 git submodule init
 git submodule update
+```
+
+## 子模块切换分支和更新
+```sh
+git submodule foreach git checkout newcore_mysql
+git submodule foreach git pull
 ```
 
 [submodule 笔记1](https://segmentfault.com/a/1190000003076028)  
