@@ -127,6 +127,11 @@ git submodule foreach git checkout newcore_mysql
 git submodule foreach git pull
 ```
 
+## 不切子模块分支的更新
+```sh
+git submodule foreach git pull origin master
+```
+
 [submodule 笔记1](https://segmentfault.com/a/1190000003076028)  
 [submodule 笔记2](https://segmentfault.com/a/1190000009928515)  
 [submodule 笔记3](https://segmentfault.com/a/1190000000523363)  
