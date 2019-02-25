@@ -1,3 +1,24 @@
+## git config
+vi ~/.gitconfig
+```ini
+[user]
+        name = j00234709
+        email = jack.ju@huawei.com
+[credential]
+        helper = store
+[http "https://github.comn"]
+        proxy = http://user:pwd@proxyhk.xx.com:8080
+        sslVerify = false
+[https "https://github.com"]
+        proxy = http://user:pwd@proxyhk.xx.com:8080
+        sslVerify = false
+```
+
+### 取消本地保存的密码
+```
+git config --global credential.helper wincred
+```
+
 ## 本地库关联远程库
 ```sh
 git remote add origin url
@@ -101,40 +122,14 @@ git branch -d dev
 ```
 
 ## Submodule的使用
+[submodule 笔记1](https://segmentfault.com/a/1190000003076028)  
+[submodule 笔记2](https://segmentfault.com/a/1190000009928515)  
+[submodule 笔记3](https://segmentfault.com/a/1190000000523363)  
 
-### 增加子模块
-```sh
-git submodule add https://github.com/j40951/TwitterService-Api.git api
-```
-
-### Clone submodule
-- 采用递归参数 `--recursive`
-```sh
-git clone https://github.com/j40951/TwitterService.git --recursive
-```
-
-- 第二种方法先 clone 父项目，再初始化 Submodule
-```sh
-git clone https://github.com/j40951/TwitterService.git
-cd api
-git submodule init
-git submodule update
-```
-
-## 子模块切换分支和更新
 ```sh
 git submodule foreach git checkout newcore_mysql
 git submodule foreach git pull
 ```
-
-## 不切子模块分支的更新
-```sh
-git submodule foreach git pull origin master
-```
-
-[submodule 笔记1](https://segmentfault.com/a/1190000003076028)  
-[submodule 笔记2](https://segmentfault.com/a/1190000009928515)  
-[submodule 笔记3](https://segmentfault.com/a/1190000000523363)  
 
 ## git cherry-pick 用于把另一个本地分支的 commit 修改应用到当前分支
 ```sh
