@@ -14,8 +14,13 @@ vi ~/.gitconfig
         sslVerify = false
 ```
 
-### 取消本地保存的密码
+### 清除掉缓存在git中的用户名和密码
+```sh
+git credential-manager uninstall
 ```
+
+### 运行一下命令缓存输入的用户名和密码
+```sh
 git config --global credential.helper wincred
 ```
 
