@@ -24,6 +24,23 @@ git credential-manager uninstall
 git config --global credential.helper wincred
 ```
 
+## create a new repository on the command line
+```sh
+echo "# commandline" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/mallbook/commandline.git
+git push -u origin master
+```
+
+## push an existing repository from the command line
+```sh
+git remote add origin https://github.com/mallbook/commandline.git
+git push -u origin master
+
+```
+
 ## 本地库关联远程库
 ```sh
 git remote add origin url
