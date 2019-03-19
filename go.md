@@ -91,9 +91,9 @@ file=main.go pkg=main
 [golang http client 连接池](http://oohcode.com/2018/06/01/golang-http-client-connection-pool/)
 
 ## windows下使用 makefile 编译 go 代码
-需要安装 gnuwin32 中的 make 与 zip 工具。
-[Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
-[Zip for Windows](http://gnuwin32.sourceforge.net/packages/zip.htm)
+需要安装 gnuwin32 中的 make 与 zip 工具。  
+- [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
+- [Zip for Windows](http://gnuwin32.sourceforge.net/packages/zip.htm)
 
 ## 参考
 [go generate介绍](https://www.jianshu.com/p/a866147021da)
