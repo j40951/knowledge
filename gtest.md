@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 |命令行参数|说明|
 |:--|:--|
 |--gtest_list_tests|使用这个参数时，将不会执行里面的测试案例，而是输出一个案例的列表。|
-|--gtest_filter|对执行的测试案例进行过滤，支持通配符 <br> ?    单个字符<br> *    任意字符<br> -    排除，如，-a 表示除了a <br> :    取或，如，a:b 表示a或b <br> 比如下面的例子：<br> ./foo_test 没有指定过滤条件，运行所有案例 <br> ./foo_test --gtest_filter=* 使用通配符*，表示运行所有案例 <br> ./foo_test --gtest_filter=FooTest.* 运行所有“测试案例名称(testcase_name)”为FooTest的案例 <br> ./foo_test --gtest_filter=*Null*:*Constructor* 运行所有“测试案例名称(testcase_name)”或“测试名称(test_name)”包含Null或Constructor的案例。<br> ./foo_test --gtest_filter=-*DeathTest.* 运行所有非死亡测试案例。<br> ./foo_test --gtest_filter=FooTest.*-FooTest.Bar 运行所有“测试案例名称(testcase_name)”为FooTest的案例，但是除了FooTest.Bar这个案例| <br>
+|--gtest_filter|对执行的测试案例进行过滤，支持通配符 <br> ?    单个字符<br> *    任意字符<br> -    排除，如，-a 表示除了a <br> :    取或，如，a:b 表示a或b <br> 比如下面的例子：<br> ./foo_test 没有指定过滤条件，运行所有案例 <br> ./foo_test --gtest_filter=* 使用通配符*，表示运行所有案例 <br> ./foo_test --gtest_filter=FooTest.* 运行所有“测试案例名称(testcase_name)”为FooTest的案例 <br> ./foo_test --gtest_filter=*Null*:*Constructor* 运行所有`测试案例名称(testcase_name)`或`测试名称(test_name)`包含Null或Constructor的案例。<br> ./foo_test --gtest_filter=-*DeathTest.* 运行所有非死亡测试案例。<br> ./foo_test --gtest_filter=FooTest.*-FooTest.Bar 运行所有`测试案例名称(testcase_name)`为FooTest的案例，但是除了FooTest.Bar这个案例| <br>
 |--gtest_also_run_disabled_tests|执行案例时，同时也执行被置为无效的测试案例。关于设置测试案例无效的方法为: <br> 在测试案例名称或测试名称中添加 `DISABLED` 前缀|
 |--gtest_repeat=[COUNT]|设置案例重复运行次数，非常棒的功能！比如：<br> <br> --gtest_repeat=1000      重复执行1000次，即使中途出现错误。<br> --gtest_repeat=-1          无限次数执行。。。。<br> --gtest_repeat=1000 --gtest_break_on_failure     重复执行1000次，并且在第一个错误发生时立即停止。这个功能对调试非常有用。<br> --gtest_repeat=1000 --gtest_filter=FooBar     重复执行1000次测试案例名称为FooBar的案例。<br>
 |--gtest_color=(yes\|no\|auto)|输出命令行时是否使用一些五颜六色的颜色。默认是auto。|
