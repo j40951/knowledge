@@ -97,3 +97,10 @@ file=main.go pkg=main
 
 ## 参考
 [go generate介绍](https://www.jianshu.com/p/a866147021da)
+
+## Mac GO 升级
+- 升级 brew brew update
+- 升级版本 brew upgrade go -v=1.9.2
+- 切换版本 brew switch go 1.5
+- 卸载 brew uninstall go
+  
