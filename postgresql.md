@@ -32,6 +32,7 @@ sudo apt-get install pgadmin3
 下面，我们使用postgres用户，来生成其他用户和新数据库。好几种方法可以达到这个目的，这里介绍两种。
 
 **第一种方法，使用PostgreSQL控制台。**
+
 首先，新建一个Linux新用户，可以取你想要的名字，这里为dbuser。
 
 ```shell
@@ -54,7 +55,7 @@ psql
 第一件事是使用\password命令，为postgres用户设置一个密码。
 
 ```shell
-password postgres
+\password postgres
 ```
 
 第二件事是创建数据库用户dbuser（刚才创建的是Linux系统用户），并设置密码。
@@ -78,24 +79,24 @@ GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
 最后，使用\q命令退出控制台（也可以直接按ctrl+D）。
 
 ```shell
-q
+\q
 ```
 
 **第二种方法，使用shell命令行。**
 
-添加新用户和新数据库，除了在PostgreSQL控制台内，还可以在shell命令行下完成。这是因为PostgreSQL提供了命令行程序createuser和createdb。还是以新建用户dbuser和数据库exampledb为例。
-首先，创建数据库用户dbuser，并指定其为超级用户。
+添加新用户和新数据库，除了在 PostgreSQL 控制台内，还可以在 shell 命令行下完成。这是因为 PostgreSQL 提供了命令行程序 createuser 和 createdb。还是以新建用户 dbuser 和数据库 exampledb 为例。
+首先，创建数据库用户 dbuser，并指定其为超级用户。
 
 ```shell
 sudo -u postgres createuser --superuser dbuser
 ```
 
-然后，登录数据库控制台，设置dbuser用户的密码，完成后退出控制台。
+然后，登录数据库控制台，设置 dbuser 用户的密码，完成后退出控制台。
 
 ```shell
 sudo -u postgres psql
-password dbuser
-q
+\password dbuser
+\q
 ```
 
 接着，在shell命令行下，创建数据库exampledb，并指定所有者为dbuser。
@@ -139,7 +140,7 @@ psql exampledb < exampledb.sql
 除了前面已经用到的\password命令（设置密码）和\q命令（退出）以外，控制台还提供一系列其他命令。
 
 - \h：查看SQL命令的解释，比如\h select。
-- \?：查看psql命令列表。
+- \\?：查看psql命令列表。
 - \l：列出所有数据库。
 - \c [database_name]：连接其他数据库。
 - \d：列出当前数据库的所有表格。
