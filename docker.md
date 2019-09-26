@@ -80,3 +80,9 @@ docker build -t app2 .
 - alpine: 另一个常用的基础镜像，带包管理功能，方便下载其它依赖的包
 
 显然。 你应该只在编译阶段使用 [Go](https://hub.docker.com/_/golang/) 的镜像，这样才能将你的镜像减小到最小。
+
+## Dockfile 参考
+
+[Dockfile reference](https://docs.docker.com/engine/reference/builder/)
+
+
