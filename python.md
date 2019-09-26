@@ -8,6 +8,8 @@ trusted-host=rnd-mirrors.huawei.com
 index-url=http://rnd-mirrors.huawei.com/pypi/simple/
 ```
 
+Linux 下配置文件为：~/.pip/pip.conf
+
 ## 设置python使用的第三方插件库
 在执行前，设置环境变量PYTHONPATH, 如下：
 ```bat
