@@ -2,8 +2,8 @@
 
 ## 配置 Docker 仓库镜像
 
-DOCKER_OPTS="--insecure-registry rnd-dockerhub.hotmall.com"
-export NO_PROXY="rnd-dockerhub.hotmall.com"
+DOCKER_OPTS="--insecure-registry rnd-dockerhub.hotmall.com"  
+export NO_PROXY="rnd-dockerhub.hotmall.com"  
 
 ## ubuntu 重启 Docker
 
