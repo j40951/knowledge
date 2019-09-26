@@ -25,7 +25,7 @@ rnd-dockerhub.hotmall.com/library/ : 为公司内源镜像库，普通用户也�
 
 ### 一个简单 Go 程序的镜像
 
-#### 一、首先让我们创建一个很简单的Go程序:
+#### 一、首先让我们创建一个很简单的Go程序
 
 ```go
 package main
@@ -83,6 +83,7 @@ docker build -t app2 .
 
 ## Dockfile 参考
 
-[Dockfile reference](https://docs.docker.com/engine/reference/builder/)
-
+- [Dockfile reference](https://docs.docker.com/engine/reference/builder/)
+- [ENTRYPOINT和CMD的区别](https://zhuanlan.zhihu.com/p/30555962)
+- [Dockerfile: ADD vs COPY](https://www.ctl.io/developers/blog/post/dockerfile-add-vs-copy/)
 
