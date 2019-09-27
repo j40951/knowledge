@@ -1,189 +1,109 @@
+# Docker
 
-# PostgreSql
+## 配置 Docker 仓库镜像
 
-自从MySQL被Oracle收购以后，[PostgreSQL](https://www.postgresql.org/)逐渐成为开源关系型数据库的首选。
-本文介绍PostgreSQL的安装和基本用法，供初次使用者上手。以下内容基于Debian操作系统，其他操作系统实在没有精力兼顾，但是大部分内容应该普遍适用
-![postgresql](images/postgresql.png)
+DOCKER_OPTS="--insecure-registry rnd-dockerhub.hotmall.com"  
+export NO_PROXY="rnd-dockerhub.hotmall.com"  
 
-## 安装
-
-首先，安装PostgreSQL客户端。
+## ubuntu 重启 Docker
 
 ```shell
-sudo apt-get install postgresql-client
+service docker restart
 ```
 
-然后，安装PostgreSQL服务器。
+## 搜索镜像
 
 ```shell
-sudo apt-get install postgresql
+docker search  rnd-dockerhub.hotmall.com/official/
+docker search  rnd-dockerhub.hotmall.com/library/
 ```
 
-正常情况下，安装完成后，PostgreSQL服务器会自动在本机的5432端口开启。
-如果还想安装图形管理界面，可以运行下面命令，但是本文不涉及这方面内容。
+rnd-dockerhub.hotmall.com/official/: 用于和docker hub官网的镜像进行定期同步  
+rnd-dockerhub.hotmall.com/library/ : 为公司内源镜像库，普通用户也无权限上传个人镜像.  
+
+## 创建最小的Go docker 镜像
+
+### 一个简单 Go 程序的镜像
+
+#### 一、首先让我们创建一个很简单的Go程序
+
+```go
+package main
+import "fmt"
+func main() {
+    fmt.Println("hello world")
+}
+```
+
+运行下面的命令编译:
 
 ```shell
-sudo apt-get install pgadmin3
+GOOS=linux CGO_ENABLED=0 go build -ldflags="-s -w" -o app app.go && tar c app
 ```
 
-## 添加新用户和新数据库
+`-s` 忽略符号表和调试信息，`-w`忽略DWARF符号表，通过这两个参数，可以进一步减少编译的程序的尺寸，更多的参数可以参考 go link, 或者 go tool link -help(另一个有用的命令是 go tool compile -help)。
 
-初次安装后，默认生成一个名为postgres的数据库和一个名为postgres的数据库用户。这里需要注意的是，同时还生成了一个名为postgres的Linux系统用户。
-下面，我们使用postgres用户，来生成其他用户和新数据库。好几种方法可以达到这个目的，这里介绍两种。
+你也可以使用strip工具对编译的Go程序进行裁剪。
 
-**第一种方法，使用PostgreSQL控制台。**
+本身 `Go` 是静态编译的， 对于 `CGO`, 如果设置 `CGO_ENABLED=0`，则完全静态编译，不会再依赖动态库。
 
-首先，新建一个Linux新用户，可以取你想要的名字，这里为dbuser。
+如果设置CGO_ENABLED=0,并且你的代码中使用了标准库的net包的话，有可能编译好的镜像无法运行，报sh: /app: not found的错误，尽管/app这个文件实际存在，并且如果讲基础镜像换为centos或者ubuntu的话就能执行。这是一个奇怪的错误，原因在于：
+
+> 默认情况下 `net` 包会使用静态链接库， 比如 libc
+
+知道了原因，解决办法也很简单，就是完全静态链接或者在基础镜像中加入libc库。
+
+下面是几种解决办法：
+
+- 设置 `CGO_ENABLED=0`
+- 编译是使用纯go的net: `go build -tags netgo -a -v`
+- 使用基础镜像加 glibc(或等价库 musl、uclibc)， 比如 busybox:glibc、alpine + RUN apk add --no-cache libc6-compat、frolvlad/alpine-glibc
+
+#### 二、新建 Dockerfile
+
+```dockfile
+FROM scratch
+ADD app /
+CMD ["/app"]
+```
+
+运行下面的命令创建一个镜像:
 
 ```shell
-sudo adduser dbuser
+docker build -t app2 .
 ```
 
-然后，切换到postgres用户。
+### 其他基础镜像
 
-```shell
-sudo su - postgres
-```
+- scratch: 空的基础镜像，最小的基础镜像
+- busybox: 带一些常用的工具，方便调试， 以及它的一些扩展busybox:glibc
+- alpine: 另一个常用的基础镜像，带包管理功能，方便下载其它依赖的包
 
-下一步，使用psql命令登录PostgreSQL控制台。
+显然。 你应该只在编译阶段使用 [Go](https://hub.docker.com/_/golang/) 的镜像，这样才能将你的镜像减小到最小。
 
-```shell
-psql
-```
+## Dockfile 参考
 
-这时相当于系统用户postgres以同名数据库用户的身份，登录数据库，这是不用输入密码的。如果一切正常，系统提示符会变为"postgres=#"，表示这时已经进入了数据库控制台。以下的命令都在控制台内完成。
-第一件事是使用\password命令，为postgres用户设置一个密码。
+- [Dockfile reference](https://docs.docker.com/engine/reference/builder/)
+- [ENTRYPOINT和CMD的区别](https://zhuanlan.zhihu.com/p/30555962)
+- [Dockerfile: ADD vs COPY](https://www.ctl.io/developers/blog/post/dockerfile-add-vs-copy/)
 
-```shell
-\password postgres
-```
+## 如何手工下载 Docker 镜像
 
-第二件事是创建数据库用户dbuser（刚才创建的是Linux系统用户），并设置密码。
+- 在可以联网的机子上执行 `docker pull` 下载镜像
 
-```shell
-CREATE USER dbuser WITH PASSWORD 'password';
-```
+  ```shell
+  sudo docker pull redis
+  ```
 
-第三件事是创建用户数据库，这里为exampledb，并指定所有者为dbuser。
+- 运行 `docker save` 命令将镜像保存为归档文件
+  
+  ```shell
+  docker save -o redis.tar redis
+  ```
 
-```shell
-CREATE DATABASE exampledb OWNER dbuser;
-```
+- 将保存的镜像归档文件拷贝到目标机器
+- 在目标机器上使用 `dock load` 命令加载保存的 tar 归档文件
 
-第四件事是将exampledb数据库的所有权限都赋予dbuser，否则dbuser只能登录控制台，没有任何数据库操作权限。
-
-```shell
-GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
-```
-
-最后，使用\q命令退出控制台（也可以直接按ctrl+D）。
-
-```shell
-\q
-```
-
-**第二种方法，使用shell命令行。**
-
-添加新用户和新数据库，除了在 PostgreSQL 控制台内，还可以在 shell 命令行下完成。这是因为 PostgreSQL 提供了命令行程序 createuser 和 createdb。还是以新建用户 dbuser 和数据库 exampledb 为例。
-首先，创建数据库用户 dbuser，并指定其为超级用户。
-
-```shell
-sudo -u postgres createuser --superuser dbuser
-```
-
-然后，登录数据库控制台，设置 dbuser 用户的密码，完成后退出控制台。
-
-```shell
-sudo -u postgres psql
-\password dbuser
-\q
-```
-
-接着，在shell命令行下，创建数据库exampledb，并指定所有者为dbuser。
-
-```shell
-sudo -u postgres createdb -O dbuser exampledb
-```
-
-## 三、登录数据库
-
-添加新用户和新数据库以后，就要以新用户的名义登录数据库，这时使用的是psql命令。
-
-```shell
-psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
-```
-
-上面命令的参数含义如下：-U指定用户，-d指定数据库，-h指定服务器，-p指定端口。
-
-输入上面命令以后，系统会提示输入dbuser用户的密码。输入正确，就可以登录控制台了。
-
-psql命令存在简写形式。如果当前Linux系统用户，同时也是PostgreSQL用户，则可以省略用户名（-U参数的部分）。举例来说，我的Linux系统用户名为ruanyf，且PostgreSQL数据库存在同名用户，则我以ruanyf身份登录Linux系统后，可以直接使用下面的命令登录数据库，且不需要密码。
-
-```shell
-psql exampledb
-```
-
-此时，如果PostgreSQL内部还存在与当前系统用户同名的数据库，则连数据库名都可以省略。比如，假定存在一个叫做ruanyf的数据库，则直接键入psql就可以登录该数据库。
-
-```shell
-psql
-```
-
-另外，如果要恢复外部数据，可以使用下面的命令。
-
-```shell
-psql exampledb < exampledb.sql
-```
-
-## 四、控制台命令
-
-除了前面已经用到的\password命令（设置密码）和\q命令（退出）以外，控制台还提供一系列其他命令。
-
-- \h：查看SQL命令的解释，比如\h select。
-- \\?：查看psql命令列表。
-- \l：列出所有数据库。
-- \c [database_name]：连接其他数据库。
-- \dt：列出当前数据库的所有表格。
-- \d [table_name]：列出某一张表格的结构。
-- \du：列出所有用户。
-- \e：打开文本编辑器。
-- \conninfo：列出当前数据库和连接的信息。
-
-## 五、数据库操作
-
-基本的数据库操作，就是使用一般的SQL语言。
-
-```sql
-# 创建新表
-CREATE TABLE user_tbl(name VARCHAR(20), signup_date DATE);
-
-# 插入数据
-INSERT INTO user_tbl(name, signup_date) VALUES('张三', '2013-12-22');
-
-# 选择记录
-SELECT * FROM user_tbl;
-
-# 更新数据
-UPDATE user_tbl set name = '李四' WHERE name = '张三';
-
-# 删除记录
-DELETE FROM user_tbl WHERE name = '李四' ;
-
-# 添加栏位
-ALTER TABLE user_tbl ADD email VARCHAR(40);
-
-# 更新结构
-ALTER TABLE user_tbl ALTER COLUMN signup_date SET NOT NULL;
-
-# 更名栏位
-ALTER TABLE user_tbl RENAME COLUMN signup_date TO signup;
-
-# 删除栏位
-ALTER TABLE user_tbl DROP COLUMN email;
-
-# 表格更名
-ALTER TABLE user_tbl RENAME TO backup_tbl;
-
-# 删除表格
-DROP TABLE IF EXISTS backup_tbl;
-```
+  ```shell
+  docker load -i redis.tar
+  ```
