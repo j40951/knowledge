@@ -4,3 +4,13 @@
 - [使用Docker-Compose编排容器](http://www.dockerinfo.net/4257.html)
 - [使用 docker-compose 替代 docker run](https://beginor.github.io/2017/06/08/use-compose-instead-of-run.html)
 - [Docker Compose Offical Document](https://docs.docker.com/compose/)
+
+## 常用命令
+
+```shell
+docker-compose up
+docker-compose images
+docker-compose ps
+docker-compose stop
+docker-compose down
+```
