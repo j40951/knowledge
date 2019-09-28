@@ -16,7 +16,9 @@ Redis 默认配置是不需要密码认证的，也就是说只要连接的 Redi
 
 Redis的配置文件默认在/etc/redis.conf，找到如下行：
 
-> #requirepass foobared
+```ini
+#requirepass foobared
+```
 
 去掉前面的注释，并修改为所需要的密码：
 
@@ -26,12 +28,16 @@ requirepass myPassword （其中myPassword就是要设置的密码）
 
 如果Redis已经配置为service服务，可以通过以下方式重启：
 
-> service redis restart
+```shell
+service redis restart
+```
 
 如果Redis没有配置为service服务，可以通过以下方式重启：
 
-> /usr/local/bin/redis-cli shutdown
+```shell
+/usr/local/bin/redis-cli shutdown
 /usr/local/bin/redis-server /etc/redis.conf
+```
 
 ### 登录验证
 
@@ -84,5 +90,7 @@ OK
 
 如果Redis服务器，使用了集群。除了在master中配置密码外，也需要在slave中进行相应配置。在slave的配置文件中找到如下行，去掉注释并修改与master相同的密码即可：
 
-> # masterauth master-password
+```shell
+# masterauth master-password
+```
 
