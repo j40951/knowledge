@@ -14,3 +14,9 @@ docker-compose ps
 docker-compose stop
 docker-compose down
 ```
+
+登录容器
+
+```shell
+docker-compose exec -u postgres postgres /bin/bash
+```
