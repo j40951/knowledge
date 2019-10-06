@@ -292,7 +292,7 @@ export WORKON_HOME=~/Envs
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
-第一行：virtualenvwrapper存放虚拟环境目录
+第一行：virtualenvwrapper存放虚拟环境目录  
 第二行：virtrualenvwrapper会安装到python的bin目录下，所以该路径是python安装目录下bin/virtualenvwrapper.sh
 
 ```shell
