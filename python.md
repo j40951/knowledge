@@ -289,6 +289,7 @@ pip install virtualenvwrapper-win　　#Windows使用该命令
 
 ```shell
 export WORKON_HOME=~/Envs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
