@@ -1,6 +1,30 @@
 # Dep
 
+## Dep Help
+
+Dep is a tool for managing dependencies for Go projects
+
+Usage: "dep [command]"
+
+Commands:
+
+- `init`     Set up a new Go project, or migrate an existing one
+- `status`   Report the status of the project's dependencies
+- `ensure`   Ensure a dependency is safely vendored in the project
+- `version`  Show the dep version information
+- `check`    Check if imports, Gopkg.toml, and Gopkg.lock are in sync
+
+Examples:
+
+- `dep init`                               set up a new project
+- `dep ensure`                             install the project's dependencies
+- `dep ensure -update`                     update the locked versions of all dependencies
+- `dep ensure -add github.com/pkg/errors`  add a dependency to the project
+
+Use "dep help [command]" for more information about a command.
+
 ## Version rules
+
 Version rules can be used in either [[constraint]] or [[override]] stanzas. There are three types of version rules - version, branch, and revision. At most one of the three types can be specified.
 
 ## version
@@ -8,7 +32,8 @@ Version rules can be used in either [[constraint]] or [[override]] stanzas. Ther
 `version` is a property of `constraints` and `overrides`. It is used to specify version constraint of a specific dependency. It can be used to target an arbitrary VCS tag, or a semantic version, or a range of semantic versions.
 
 Specifying semantic version ranges can be done using the following operators:
-```
+
+```ini
 =       : equal
 !=      : not equal
 >       : greater than
@@ -24,16 +49,19 @@ Specifying semantic version ranges can be done using the following operators:
 You might, for example, include a rule that specifies version = "=2.0.0" to pin a dependency to version 2.0.0, or constrain to minor releases with: version = "~2.1.0". Refer to the semver library documentation for more info.
 
 Note: When you specify a version without an operator, dep automatically uses the ^ operator by default. dep ensure will interpret the given version as the min-boundary of a range, for example:
+
 - `1.2.3` becomes the range `>=1.2.3, <2.0.0`
 - `0.2.3` becomes the range `>=0.2.3, <0.3.0`
 - `0.0.3` becomes the range `>=0.0.3, <0.1.0`
 
 `~` and `=` operators can be used with the versions. When a version is specified without any operator, dep automatically adds a caret operator, `^`. The caret operator pins the left-most non-zero digit in the version. For example:
+
 - `^1.2.3` means `1.2.3 <= X < 2.0.0`
 - `^0.2.3` means `0.2.3 <= X < 0.3.0`
 - `^0.0.3` means `0.0.3 <= X < 0.1.0`
 
 To pin a version of direct dependency in manifest, prefix the version with `=`. For example:
+
 ```ini
 [[constraint]]
   name = "github.com/pkg/errors"
@@ -41,6 +69,7 @@ To pin a version of direct dependency in manifest, prefix the version with `=`. 
 ```
 
 ## Example
+
 A sample `Gopkg.toml` with most elements present:
 
 ```ini
