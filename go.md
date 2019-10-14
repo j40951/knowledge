@@ -128,7 +128,7 @@ file=main.go pkg=main
 
 ## GO 环境变量
 
-···shell
+```shell
 export http_proxy="socks5://127.0.0.1:1086"
 export https_proxy="socks5://127.0.0.1:1086"
 export no_proxy="127.0.0.1,localhost"
