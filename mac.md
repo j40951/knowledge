@@ -1,6 +1,7 @@
 # Mac 快捷键
 
 ## 快捷键
+
 Ctrl+A：到行首（达到Home键的效果）
 
 Ctrl+E：到行尾（达到End键的效果）
@@ -30,4 +31,3 @@ groups user_name
 id -a user_name
 whoami
 ```
-

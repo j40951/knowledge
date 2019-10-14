@@ -5,4 +5,5 @@
 [Quick Start](https://kafka.apache.org/documentation/#gettingStarted)
 
 ## Go Client
+
 [Go Client](https://github.com/segmentio/kafka-go)

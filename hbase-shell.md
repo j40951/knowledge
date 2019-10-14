@@ -1,25 +1,29 @@
 # HBase
 
 ## 通过 hbase shell 来连接正在运行的 HBase
-```sh
+
+```shell
 ./bin/hbase shell
 ```
 
-HBase Shell; enter 'help<RETURN>' for list of supported commands.
-Type "exit<RETURN>" to leave the HBase Shell
-Version 0.94.0, r, Sun Aug 26 22:12:56 CST 2012
+HBase Shell; enter `help<RETURN>` for list of supported commands.  
+Type `exit<RETURN>` to leave the HBase Shell  
+Version 0.94.0, r, Sun Aug 26 22:12:56 CST 2012  
 hbase(main):001:0>
 
 ## Display HBase Shell Help Text
+
 Type `help` and press Enter, to display some basic usage information for HBase Shell, as well as several example commands. Notice that table names, rows, columns all must be enclosed in quote characters.
-```sh
+
+```shell
 hbase> help get
 ```
 
 ## 创建表
-创建表时，可以选择多个参数，但表名和列族名是必须的参数，其它参数还包括版本数、TTL
-以及预分 Region 建表的 key 数组等
-```sh
+
+创建表时，可以选择多个参数，但表名和列族名是必须的参数，其它参数还包括版本数、TTL 以及预分 Region 建表的 key 数组等
+
+```shell
 hbase> create 't1', {NAME => 'f1', VERSIONS => 5}
 hbase> create 't1', {NAME => 'f1'}, {NAME => 'f2'}, {NAME => 'f3'}
 hbase> # The above in shorthand would be the following:
@@ -33,14 +37,18 @@ hbase> create 't1', 'f1', {NUMREGIONS => 15, SPLITALGO => 'HexStringSplit'}
 ```
 
 ## 插入一行数据 -- put
+
 Put 数据时，必选参数是表名、RowKey、列名（包括列族和列名）和值，可选参数包括时间戳
+
 用法：
-```sh
+
+```shell
 hbase> put 't1', 'r1', 'c1', 'value', ts1
 ```
 
 例如，向表 test 中 put 三条数据，并通过 count 命令计算 test 表中的数据的条数  
-```sh
+
+```shell
 //向表 test 中 put 数据，RowKey 为 rowkey1，列族名为 cf，列名为 qualifier1，值为 value1
 hbase(main):002:0> put 'test','rowkey1','cf:qualifier1','value1'
 0 row(s) in 0.5940 seconds
@@ -57,8 +65,10 @@ hbase(main):013:0> count 'test'
 ```
 
 ## 读取一行数据 -- Get
+
 查询一行数据时，必选参数是表名和 RowKey，可选参数包括列名（包括列族和列名）、时间戳、版本数等
-```sh
+
+```shell
 hbase> get 't1', 'r1'
 hbase> get 't1', 'r1', {TIMERANGE => [ts1, ts2]}
 hbase> get 't1', 'r1', {COLUMN => 'c1'}
@@ -72,8 +82,10 @@ hbase> get 't1', 'r1', ['c1', 'c2']
 ```
 
 ## 读取多行数据 -- Scan
+
 查询多行数据，必选参数是表名，可选参数包括列名（包括列族和列名）、起止 Key、Filter
-```sh
+
+```shell
 //查询元表
 hbase> scan '.META.'
 hbase> scan '.META.', {COLUMNS => 'info:regioninfo'}
@@ -86,8 +98,10 @@ hbase> scan 't1', {RAW => true, VERSIONS => 10}
 ```
 
 ## List Information About your Table
+
 Use the `list` command to confirm your table exists
-```sh
+
+```shell
 hbase(main):002:0> list 'test'
 TABLE
 test
@@ -97,7 +111,8 @@ test
 ```
 
 Now use the `describe` command to see details, including configuration defaults
-```sh
+
+```shell
 hbase(main):003:0> describe 'test'
 Table test is ENABLED
 test
@@ -107,8 +122,8 @@ COLUMN FAMILIES DESCRIPTION
 Took 0.9998 seconds
 ```
 
-
 ## Other Shell commands
+
 HBase 还提供了一些其它的 Shell API，包括 general、ddl、dml、tools、replication 和 security 六组，每组又包括多个 Shell 命令。每组命令和每个命令的用法均可以通过 help 查询其用法
 
 |Group Name|Commands|

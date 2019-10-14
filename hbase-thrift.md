@@ -1,19 +1,23 @@
 # Thrift
 
 ## Install Thrift Compiler
+
 To get started, [download](https://thrift.apache.org/download) a copy of Thrift.
 
 generate the source from a thrift file run:
-```sh
+
+```shell
 > thrift --gen <language> <Thrift filename>
 ```
 
 Show help
-```sh
+
+```shell
 > thrift -help
 ```
 
-## HBase Thrift 
+## HBase Thrift
+
 ```sh
-> thrift --gen go 
+> thrift --gen go
 ```

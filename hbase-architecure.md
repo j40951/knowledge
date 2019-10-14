@@ -1,14 +1,17 @@
 # HBase Architecture
 
 ## Architecture
+
 ![Architecture](hbase-images/architecture.png)
 
 ## Region
+
 ![Region](hbase-images/region.png)
 
 将一个数据表按Key值范围横向划分为一个个的子表，实现分布式存储。这个子表，在HBase中被称作“Region”。每一个Region都关联一个Key值范围，即一个使用StartKey和EndKey描述的区间。事实上，每一个Region仅仅记录StartKey就可以了，因为它的EndKey就是下一个Region的StartKey。Region是HBase分布式存储的最基本单元。
 
 ## Region 与 RegionServer
+
 ![RegionServer](hbase-images/regionserver.png)
 
 RegionServer是HBase的数据服务进程。负责处理用户数据的读写请求。Region被交由RegionServer管理。实际上，所有用户数据的读写请求，都是和RegionServer上的Region进行交互。Region可以在RegionServer之间发生转移。  
@@ -17,12 +20,16 @@ RegionServer是HBase的数据服务进程。负责处理用户数据的读写请
 一个Region包含了一个Startkey和EndKey范围；一条用户数据KeyValue必然属于一个唯一的Region；Region由RegionServer来管，那么，这个路由信息保存在哪里呢？Region如何才可以转移？由谁负责转移？  
 
 ## Region 分类
+
 ![Region](hbase-images/region_classes.png)
 
 Region 分为元数据 Region 以及用户 Region 两类。而对于元数据 Region，又包含 Root Region 和 Meta Region 两类。
+
 - Root Region 记录了 Meta Region 的路由信息。
 - Meta Region 记录了每一个 User Region 的路由信息。
+
 读写 Region 数据的路由，包括如下几步：
+
 - 找寻 Root Region 地址。
 - 由 Root Region 找寻 Meta Region 地址。
 - 再由 Meta Region 找寻 User Region 地址。
@@ -31,7 +38,9 @@ Region 分为元数据 Region 以及用户 Region 两类。而对于元数据 Re
 Root Region 信息保存在哪里？
 
 ## Master
+
 ![Master](hbase-images/master.png)
+
 - Master 进程负责管理所有的 RegionServer。
   - 新 RegionServer 的注册。
   - RegionServer Failover 处理。
@@ -48,6 +57,7 @@ Root Region 信息保存在哪里？
 主备 Master 进程角色是如何进行裁决的？
 
 ## ZooKeeper
+
 ![Zookeeper](hbase-images/zookeeper.png)
 
 - 提供分布式锁的服务。  
@@ -58,14 +68,16 @@ Root Region 信息保存在哪里？
 例如，在 ZooKeeper 中存放了 Root Region 的地址（RootRegion 原来是存在 ZooKeeper 中的！），此时，可以将它理解成一个微型数据库。
 
 ## HDFS
+
 ![HDFS](hbase-images/hdfs.png)
+
 - HDFS 是一个分布式文件系统。它通过将一个大的文件划分成一个个固定大小的 Block 来实现分布式存储。每一个 Block 的默认大小为64MB。
 - 每一个 Block 都存在多个备份，并且被部署在不同的数据节点上，来保障数据的安全。
 - 目前，HBase 的所有底层数据都以文件的形式交由 HDFS 来存储。HBase 一侧本身不固化保存数据信息。
 
-
 思考?  
 NAS 能否替代 HDFS 来作为 HBase 的底层存储？
 
-## 总结 
+## 总结
+
 ![summary](hbase-images/summary.png)

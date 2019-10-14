@@ -12,7 +12,7 @@
 
 在使用 Linux 中的通配符时 `* ?` 等 如果没有匹配到任何文件, 不会报 No such file or directory 而是将命令后面的参数去掉执行
 
-## if [ "${1:0:1}" = '-' ]; then...
+## if [ "${1:0:1}" = '-' ]; then
 
 这是一个判断语句, 在官方文件中, 上一行已经给出了注释: `if command starts with an option, prepend mysqld`
 
@@ -79,4 +79,3 @@ echo ${mysql[@]}
 gosu 是一个 golang 语言开发的工具, 用来取代 shell 中的 sudo 命令. su 和 sudo 命令有一些缺陷, 主要是会引起不确定的 TTY, 对信号量的转发也存在问题. 如果仅仅为了使用特定的用户运行程序, 使用 su 或 sudo 显得太重了, 为此 gosu 应运而生.
 
 gosu 直接借用了 libcontainer 在容器中启动应用程序的原理, 使用 /etc/passwd 处理应用程序. gosu 首先找出指定的用户或用户组, 然后切换到该用户或用户组. 接下来, 使用 exec 启动应用程序. 到此为止, gosu 完成了它的工作, 不会参与到应用程序后面的声明周期中. 使用这种方式避免了 gosu 处理 TTY 和转发信号量的问题, 把这两个工作直接交给了应用程序去完成
-
