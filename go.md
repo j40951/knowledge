@@ -125,3 +125,16 @@ file=main.go pkg=main
 - [testify](https://github.com/stretchr/testify)
 - [gomock](https://github.com/golang/mock)
 - [wire](https://github.com/google/wire)
+
+## GO 环境变量
+
+···shell
+export http_proxy="socks5://127.0.0.1:1086"
+export https_proxy="socks5://127.0.0.1:1086"
+export no_proxy="127.0.0.1,localhost"
+
+export GOROOT=/usr/local/Cellar/go/1.13/libexec
+export GOPATH=/Users/jzlei/go
+export GOPROXY=https://goproxy.io
+```
+
