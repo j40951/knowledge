@@ -1,19 +1,23 @@
 # GTest
 
 ## 编译
+
 下载 gtest 代码，编译得到如下两个 lib 库
+
 - gtest.lib
 - gtest_main.lib
 
 ## Quick Start
+
 待测函数
+
 ```c++
 int g_count = 0;
 
 int Foo(int a, int b)
 {
-	g_count ++;
-	std::cout << "g_count=" << g_count << std::endl;
+    g_count ++;
+    std::cout << "g_count=" << g_count << std::endl;
 
     if (a == 0 || b == 0)
     {
@@ -27,6 +31,7 @@ int Foo(int a, int b)
 ```
 
 测试桩
+
 ```c++
 #include <gtest/gtest.h>
 #include <iostream>
@@ -35,15 +40,15 @@ class FooTest : public ::testing::Test
 {
 public:
 
-	virtual void SetUp()
-	{
-		std::cout << "Setup" << std::endl;
-	}
+    virtual void SetUp()
+    {
+        std::cout << "Setup" << std::endl;
+    }
 
-	void TearDown()
-	{
-		std::cout << "TearDown" << std::endl;
-	}
+    void TearDown()
+    {
+        std::cout << "TearDown" << std::endl;
+    }
 };
 
 TEST_F(FooTest, HandleNoneZeroInput)
@@ -66,13 +71,13 @@ TEST(FooTestOther, HandleNoneZeroInput3)
 ```
 
 命令行参数支持
+
 ```c++
 int main(int argc, char *argv[])
 {
-	testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
-
 ```
 
 参数列表  
