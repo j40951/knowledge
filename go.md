@@ -98,6 +98,10 @@ main func
 file=main.go pkg=main
 ```
 
+### 参考
+
+[go generate介绍](https://www.jianshu.com/p/a866147021da)
+
 ## net/http 使用
 
 [golang http client 连接池](http://oohcode.com/2018/06/01/golang-http-client-connection-pool/)
@@ -108,10 +112,6 @@ file=main.go pkg=main
 
 - [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
 - [Zip for Windows](http://gnuwin32.sourceforge.net/packages/zip.htm)
-
-## 参考
-
-[go generate介绍](https://www.jianshu.com/p/a866147021da)
 
 ## Mac GO 升级
 
