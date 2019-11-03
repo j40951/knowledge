@@ -187,3 +187,6 @@ ALTER TABLE user_tbl RENAME TO backup_tbl;
 # 删除表格
 DROP TABLE IF EXISTS backup_tbl;
 ```
+
+## 索引
+- [postgres 索引失效](https://www.cnblogs.com/alianbog/p/5648455.html)
