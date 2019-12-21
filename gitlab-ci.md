@@ -39,9 +39,9 @@ docker run -d --name gitlab-runner --restart always \
     gitlab/gitlab-runner:latest
 ```
 
-3. Register the runner you just launched by following the instructions in the (Docker section of Registering Runners)[https://docs.gitlab.com/runner/register/index.html#docker]. The runner won’t pick up any jobs until it’s registered.
+3. Register the runner you just launched by following the instructions in the [Docker section of Registering Runners](https://docs.gitlab.com/runner/register/index.html#docker). The runner won’t pick up any jobs until it’s registered.
 
-Make sure that you read the (FAQ)[https://docs.gitlab.com/runner/faq/README.html] section which describes some of the most common problems with GitLab Runner.
+Make sure that you read the [FAQ](https://docs.gitlab.com/runner/faq/README.html) section which describes some of the most common problems with GitLab Runner.
 
 ### Update configuration
 
@@ -99,9 +99,55 @@ docker logs gitlab-runner
 
 where gitlab-runner is the name of the container, set with --name gitlab-runner by the first command.
 
-You may find more information about handling container logs at the (Docker documentation pages)[https://docs.docker.com/engine/reference/commandline/logs/]
+You may find more information about handling container logs at the [Docker documentation pages](https://docs.docker.com/engine/reference/commandline/logs/)
+
+## Registering Runners
+
+### One-line registration command
+
+If you want to use the non-interactive mode to register a Runner, you can either use the register subcommands or use their equivalent environment variables
+
+To see a list of all the register subcommands, use:
+
+```shell
+gitlab-runner register -h
+```
+
+To register a Runner using the most common options, you would do:
+
+```shell
+sudo gitlab-runner register \
+  --non-interactive \
+  --url "https://gitlab.com/" \
+  --registration-token "PROJECT_REGISTRATION_TOKEN" \
+  --executor "docker" \
+  --docker-image alpine:latest \
+  --description "docker-runner" \
+  --tag-list "docker,aws" \
+  --run-untagged="true" \
+  --locked="false" \
+  --access-level="not_protected"
+```
+
+If you’re running the Runner in a Docker container, the register command would look like:
+
+```shell
+docker run --rm -v /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register \
+  --non-interactive \
+  --executor "docker" \
+  --docker-image alpine:latest \
+  --url "https://gitlab.com/" \
+  --registration-token "PROJECT_REGISTRATION_TOKEN" \
+  --description "docker-runner" \
+  --tag-list "docker,aws" \
+  --run-untagged="true" \
+  --locked="false" \
+  --access-level="not_protected"
+```
 
 ## Refrence
 
-(Run GitLab Runner in a container)[https://docs.gitlab.com/runner/install/docker.html]
+- [Run GitLab Runner in a container](https://docs.gitlab.com/runner/install/docker.html)
+- [Registering Runners](https://docs.gitlab.com/runner/register/index.html#docker)
+
 
