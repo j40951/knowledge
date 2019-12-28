@@ -11,6 +11,26 @@ export NO_PROXY="rnd-dockerhub.hotmall.com"
 service docker restart
 ```
 
+## 常用 Docker 命令
+
+### 建立镜像
+
+```shell
+docker build -t hotbug/android:28 .
+```
+
+### 启动镜像
+
+```shell
+docker run -d --name xxxxx -t hotbug/android:28
+```
+
+### 登录容器
+
+```shell
+docker exec -u postgres postgres /bin/bash
+```
+
 ## 搜索镜像
 
 ```shell
