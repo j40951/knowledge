@@ -1,26 +1,30 @@
 
 https://gitlab.huawei.com/oauth/authorize?client_id=c21d3ed64ccf09d254c85de25cbf894e4935c9e2412a4b5aef27679150a93563&redirect_uri=http://localhost:8080/oauth/redirect&response_type=code&state=11111111&scope=api
 
-
 http://localhost:8080/oauth/redirect?code=b99647a3854d040d6e48daa3246308621070f66644a83d267b631a421d109fc4&state=11111111
-
 
 http://localhost:8080/oauth/redirect?code=b90a04c02b8ad0150967e3cba91ae5b8da01bd67e6d2334ff0d9cc7fb447e4b6&state=11111111
 
 parameters = 'client_id=APP_ID&client_secret=APP_SECRET&code=RETURNED_CODE&grant_type=authorization_code&redirect_uri=REDIRECT_URI'
 RestClient.post 'http://gitlab.example.com/oauth/token', parameters
 
-
+```shell
 echo 'client_id=c21d3ed64ccf09d254c85de25cbf894e4935c9e2412a4b5aef27679150a93563&client_secret=3ea3b139fc2ae85154273c7b1a269531c84e41e6dcea3d6ae5444f3ff1eec533&code=b90a04c02b8ad0150967e3cba91ae5b8da01bd67e6d2334ff0d9cc7fb447e4b6&grant_type=authorization_code&redirect_uri=http://localhost:8080/oauth/redirect' > auth.txt
+```
 
-
+```shell
 curl --data "@auth.txt" --request POST https://gitlab.huawei.com/oauth/token
+```
 
-
+```json
 {"access_token":"fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c","token_type":"bearer","refresh_token":"9e977e9a8f33e14a55fc21f1a0bdce204749b52b62e1afa70dc17a30702022c0","scope":"api","created_at":1567826808}
+```
 
-
+```shell
 curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/user
+```
+
+```json
 {
 	"id": 1063,
 	"name": "juzhanglei 00234709",
@@ -55,8 +59,13 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"external": false,
 	"private_profile": null
 }
+```
 
+```shell
 curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/groups
+```
+
+```json
 [{
 	"id": 76344,
 	"web_url": "https://gitlab.huawei.com/groups/Hotbug/Api",
@@ -141,8 +150,13 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"full_path": "Hotbug/Services",
 	"parent_id": 76341
 }]
+```
 
+```shell
 curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/groups/76344/projects
+```
+
+```json
 [{
 	"id": 42965,
 	"description": "",
@@ -201,8 +215,13 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"printing_merge_request_link_enabled": true,
 	"merge_method": "merge"
 }]
+```
 
+```shell
 curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/groups/76344/members/all
+```
+
+```json
 [{
 	"id": 1063,
 	"name": "juzhanglei 00234709",
@@ -213,6 +232,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"access_level": 50,
 	"expires_at": null
 }]
+```
 
 ```go
 h := requests.Header{
@@ -236,3 +256,4 @@ if err != nil {
 	return
 }
 ```
+

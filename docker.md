@@ -19,7 +19,13 @@ service docker restart
 docker build -t hotbug/android:28 .
 ```
 
-### 启动镜像
+添加一个tag latest
+
+```shell
+docker tag hotbug/android:28 hotbug/android:latest
+```
+
+### 运行镜像
 
 ```shell
 docker run -d --name xxxxx -t hotbug/android:28
@@ -106,4 +112,7 @@ docker build -t app2 .
 - [Dockfile reference](https://docs.docker.com/engine/reference/builder/)
 - [ENTRYPOINT和CMD的区别](https://zhuanlan.zhihu.com/p/30555962)
 - [Dockerfile: ADD vs COPY](https://www.ctl.io/developers/blog/post/dockerfile-add-vs-copy/)
-
+- [可能是把Docker的概念讲的最清楚的一篇文章](https://juejin.im/post/5b260ec26fb9a00e8e4b031a)
+- [进入容器](https://yeasy.gitbooks.io/docker_practice/container/attach_exec.html)
+- [删除镜像](https://yeasy.gitbooks.io/docker_practice/image/rm.html)
+- [从入门到实践](https://yeasy.gitbooks.io/docker_practice/content/)
