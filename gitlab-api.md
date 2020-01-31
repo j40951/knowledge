@@ -1,5 +1,5 @@
 
-https://gitlab.huawei.com/oauth/authorize?client_id=c21d3ed64ccf09d254c85de25cbf894e4935c9e2412a4b5aef27679150a93563&redirect_uri=http://localhost:8080/oauth/redirect&response_type=code&state=11111111&scope=api
+https://gitlab.hot.com/oauth/authorize?client_id=c21d3ed64ccf09d254c85de25cbf894e4935c9e2412a4b5aef27679150a93563&redirect_uri=http://localhost:8080/oauth/redirect&response_type=code&state=11111111&scope=api
 
 http://localhost:8080/oauth/redirect?code=b99647a3854d040d6e48daa3246308621070f66644a83d267b631a421d109fc4&state=11111111
 
@@ -13,7 +13,7 @@ echo 'client_id=c21d3ed64ccf09d254c85de25cbf894e4935c9e2412a4b5aef27679150a93563
 ```
 
 ```shell
-curl --data "@auth.txt" --request POST https://gitlab.huawei.com/oauth/token
+curl --data "@auth.txt" --request POST https://gitlab.hot.com/oauth/token
 ```
 
 ```json
@@ -21,7 +21,7 @@ curl --data "@auth.txt" --request POST https://gitlab.huawei.com/oauth/token
 ```
 
 ```shell
-curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/user
+curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.hot.com/api/v4/user
 ```
 
 ```json
@@ -30,8 +30,8 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"name": "juzhanglei 00234709",
 	"username": "j00234709",
 	"state": "active",
-	"avatar_url": "https://w3.huawei.com/w3lab/rest/yellowpage/face/00234709/120",
-	"web_url": "https://gitlab.huawei.com/j00234709",
+	"avatar_url": "https://w3.hot.com/w3lab/rest/yellowpage/face/00234709/120",
+	"web_url": "https://gitlab.hot.com/j00234709",
 	"created_at": "2018-09-23T18:23:48.809+08:00",
 	"bio": null,
 	"location": null,
@@ -44,7 +44,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"last_sign_in_at": "2019-08-30T16:27:13.605+08:00",
 	"confirmed_at": "2018-09-23T18:23:48.761+08:00",
 	"last_activity_on": "2019-09-07",
-	"email": "jack.ju@huawei.com",
+	"email": "jack.ju@hot.com",
 	"theme_id": 1,
 	"color_scheme_id": 1,
 	"projects_limit": 100000,
@@ -62,13 +62,13 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 ```
 
 ```shell
-curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/groups
+curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.hot.com/api/v4/groups
 ```
 
 ```json
 [{
 	"id": 76344,
-	"web_url": "https://gitlab.huawei.com/groups/Hotbug/Api",
+	"web_url": "https://gitlab.hot.com/groups/Hotbug/Api",
 	"name": "Api",
 	"path": "Api",
 	"description": "",
@@ -82,7 +82,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 },
 {
 	"id": 76341,
-	"web_url": "https://gitlab.huawei.com/groups/Hotbug",
+	"web_url": "https://gitlab.hot.com/groups/Hotbug",
 	"name": "Hotbug",
 	"path": "Hotbug",
 	"description": "",
@@ -96,7 +96,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 },
 {
 	"id": 1400,
-	"web_url": "https://gitlab.huawei.com/groups/MallBook",
+	"web_url": "https://gitlab.hot.com/groups/MallBook",
 	"name": "MallBook",
 	"path": "MallBook",
 	"description": "",
@@ -110,7 +110,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 },
 {
 	"id": 76342,
-	"web_url": "https://gitlab.huawei.com/groups/Hotbug/Marketing",
+	"web_url": "https://gitlab.hot.com/groups/Hotbug/Marketing",
 	"name": "Marketing",
 	"path": "Marketing",
 	"description": "",
@@ -124,7 +124,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 },
 {
 	"id": 2358,
-	"web_url": "https://gitlab.huawei.com/groups/nce_gopkgs",
+	"web_url": "https://gitlab.hot.com/groups/nce_gopkgs",
 	"name": "nce_gopkgs",
 	"path": "nce_gopkgs",
 	"description": "NCE gopkgs group",
@@ -138,7 +138,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 },
 {
 	"id": 76343,
-	"web_url": "https://gitlab.huawei.com/groups/Hotbug/Services",
+	"web_url": "https://gitlab.hot.com/groups/Hotbug/Services",
 	"name": "Services",
 	"path": "Services",
 	"description": "",
@@ -153,7 +153,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 ```
 
 ```shell
-curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/groups/76344/projects
+curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.hot.com/api/v4/groups/76344/projects
 ```
 
 ```json
@@ -167,10 +167,10 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"created_at": "2019-09-07T11:34:22.276+08:00",
 	"default_branch": "master",
 	"tag_list": [],
-	"ssh_url_to_repo": "ssh://git@gitlab.huawei.com:2222/Hotbug/Api/IdeaService.git",
-	"http_url_to_repo": "https://gitlab.huawei.com/Hotbug/Api/IdeaService.git",
-	"web_url": "https://gitlab.huawei.com/Hotbug/Api/IdeaService",
-	"readme_url": "https://gitlab.huawei.com/Hotbug/Api/IdeaService/blob/master/README.md",
+	"ssh_url_to_repo": "ssh://git@gitlab.hot.com:2222/Hotbug/Api/IdeaService.git",
+	"http_url_to_repo": "https://gitlab.hot.com/Hotbug/Api/IdeaService.git",
+	"web_url": "https://gitlab.hot.com/Hotbug/Api/IdeaService",
+	"readme_url": "https://gitlab.hot.com/Hotbug/Api/IdeaService/blob/master/README.md",
 	"avatar_url": null,
 	"star_count": 0,
 	"forks_count": 0,
@@ -184,13 +184,13 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 		"parent_id": 76341
 	},
 	"_links": {
-		"self": "https://gitlab.huawei.com/api/v4/projects/42965",
-		"issues": "https://gitlab.huawei.com/api/v4/projects/42965/issues",
-		"merge_requests": "https://gitlab.huawei.com/api/v4/projects/42965/merge_requests",
-		"repo_branches": "https://gitlab.huawei.com/api/v4/projects/42965/repository/branches",
-		"labels": "https://gitlab.huawei.com/api/v4/projects/42965/labels",
-		"events": "https://gitlab.huawei.com/api/v4/projects/42965/events",
-		"members": "https://gitlab.huawei.com/api/v4/projects/42965/members"
+		"self": "https://gitlab.hot.com/api/v4/projects/42965",
+		"issues": "https://gitlab.hot.com/api/v4/projects/42965/issues",
+		"merge_requests": "https://gitlab.hot.com/api/v4/projects/42965/merge_requests",
+		"repo_branches": "https://gitlab.hot.com/api/v4/projects/42965/repository/branches",
+		"labels": "https://gitlab.hot.com/api/v4/projects/42965/labels",
+		"events": "https://gitlab.hot.com/api/v4/projects/42965/events",
+		"members": "https://gitlab.hot.com/api/v4/projects/42965/members"
 	},
 	"archived": false,
 	"visibility": "private",
@@ -218,7 +218,7 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 ```
 
 ```shell
-curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.huawei.com/api/v4/groups/76344/members/all
+curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc74ef771a90035b23dfb8c" https://gitlab.hot.com/api/v4/groups/76344/members/all
 ```
 
 ```json
@@ -227,8 +227,8 @@ curl --header "Authorization: Bearer fb6c634abadce714e8dad55567c7762d101188ceadc
 	"name": "juzhanglei 00234709",
 	"username": "j00234709",
 	"state": "active",
-	"avatar_url": "https://w3.huawei.com/w3lab/rest/yellowpage/face/00234709/120",
-	"web_url": "https://gitlab.huawei.com/j00234709",
+	"avatar_url": "https://w3.hot.com/w3lab/rest/yellowpage/face/00234709/120",
+	"web_url": "https://gitlab.hot.com/j00234709",
 	"access_level": 50,
 	"expires_at": null
 }]
