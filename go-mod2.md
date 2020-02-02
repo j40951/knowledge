@@ -144,4 +144,6 @@ gopkg.in/yaml.v2 v2.2.2
 ```
 
 ## 参考
-[Go 依赖管理工具 Go Modules](https://segmentfault.com/a/1190000020543746)
+- [Go 依赖管理工具 Go Modules](https://segmentfault.com/a/1190000020543746)
+- [关于Go Modules，看这一篇文章就够了](https://zhuanlan.zhihu.com/p/87972284)
+
