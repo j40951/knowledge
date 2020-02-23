@@ -134,7 +134,7 @@ func main() {
 }
 ```
 
-## 使用replace替换无法直接获取的package
+## 使用 replace 替换无法直接获取的 package
 
 由于某些已知的原因，并不是所有的package都能成功下载，比如：golang.org下的包。
 
@@ -165,3 +165,33 @@ If you want to keep your vendor folder:
 - Run go mod vendor to copy your dependencies into the vendor folder.
 - Run go build -mod=vendor to ensure go build uses your vendor folder.
 
+## 将私有仓库用作 module 依赖
+
+使用 `GOPRIVATE` 环境变量
+
+```shell
+go env -w GOPRIVATE="gitlab.com/xxx"
+```
+
+它可以声明指定域名为私有仓库，`go get` 在处理该域名下的所有依赖时，会直接跳过 `GOPROXY` 和 `CHECKSUM` 等逻辑。
+
+另外域名 `gitlab.com/xxx` 非常灵活，它默认是前缀匹配的，所有的 `gitlab.com/xxx` 前缀的依赖模块都会被视为 `private-modules`，它对于企业、私有 Group 等有着一劳永逸的益处。
+
+提示：如果你通过 `ssh` 公钥访问私有仓库，记得配置 `git` 拉取私有仓库时使用 `ssh` 而非 `https`
+
+可以通过命令git config ...的方式来配置
+
+```shell
+git config --global url."git@gitlab.com:xxx/zz.git".insteadof "https://gitlab.com/xxx/zz.git"
+```
+
+也可以直接修改 `~/.gitconfig` 添加如下配置：
+
+```ini
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+```
+
+即可强制 `go get` 针对 `github.com` 与 `gitlab.com` 使用 `ssh` 而非 `https`。
