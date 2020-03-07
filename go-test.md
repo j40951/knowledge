@@ -12,3 +12,4 @@
 - [GoStub框架二次开发实践](https://www.jianshu.com/p/53a531852619)
 - [GoStub框架使用指南](https://www.jianshu.com/p/70a93a9ed186)
 - [GoConvey框架使用指南](https://www.jianshu.com/p/e3b2b1194830)
+- [Go语言inline内联的策略与限制](https://pengrl.com/p/20028/)
