@@ -53,3 +53,7 @@ Maven 配置
     <version>21.0</version>
 </dependency>
 ```
+
+参考
+
+[guava 代码](https://github.com/google/guava)
