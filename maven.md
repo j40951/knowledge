@@ -93,3 +93,7 @@ mvn install:install-file -Dfile=D:\code3\20180806\xdaoSwitch\lib\sqljdbc4.jar -D
 ## How to enable maven auto import
 
 > File -> Setting -> Build -> Maven -> Importing
+
+## 解决 IDEA 中 lombok 无法通过编译
+
+在 IDEA 中安装 lombok 插件
